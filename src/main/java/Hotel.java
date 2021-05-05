@@ -17,7 +17,9 @@ public class Hotel {
     }
 
     public void checkInGuestToBedroom(Bedroom bedroom, Guest guest) {
-        bedroom.addGuest(guest);
+        if (this.checkEmptyBedrooms().contains (bedroom)) {
+            bedroom.addGuest(guest);
+        }
     }
 
     public void checkOutGuestFromBedroom(Bedroom bedroom, Guest guest) {
@@ -25,5 +27,15 @@ public class Hotel {
     }
     public Booking bookRoom(Bedroom bedroom, int nights){
         return new Booking(bedroom, nights);
+    }
+
+    public ArrayList<Bedroom> checkEmptyBedrooms() {
+        ArrayList<Bedroom> emptyBedrooms = new ArrayList<>();
+        for (Bedroom bedroom : this.bedrooms) {
+            if(bedroom.guestCount() == 0) {
+                emptyBedrooms.add(bedroom);
+            }
+        }
+        return emptyBedrooms;
     }
 }
